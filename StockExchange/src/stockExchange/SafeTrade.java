@@ -1,4 +1,3 @@
-package stockExchange;
 import javax.swing.JFrame;
 
 /**
