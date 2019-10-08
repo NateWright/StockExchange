@@ -1,6 +1,6 @@
 # StockExchange
 
-Assigned tasks:
+Assigned tasks: \n
 Nate - Quality Assurance
 Noah - Quality Assurance
 Jared - Stock
