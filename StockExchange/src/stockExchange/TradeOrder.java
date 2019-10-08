@@ -11,6 +11,14 @@ public class TradeOrder {
 	private boolean isBuying;
 	private boolean isMarket;
 	
+	public TradeOrder(String ss, int nos, int p, boolean b, boolean m) {
+		stockSymbol = ss;
+		numberOfShares = nos;
+		price = p;
+		isBuying = b;
+		isMarket = m;
+	}
+	
 	public TradeOrder() {
 		
 	}
