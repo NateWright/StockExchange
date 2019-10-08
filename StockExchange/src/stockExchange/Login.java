@@ -1,3 +1,4 @@
+package stockExchange;
 /**
  * Specifies methods for registering and logging in users.
  */
