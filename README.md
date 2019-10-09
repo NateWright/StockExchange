@@ -1,12 +1,15 @@
 # StockExchange
 
 Classes:
+
 StockExchange:
   HashMap of listed stocks - keyed by Ticker Symbols
+  
 Brockerage:
   TreeMap of registered traders
   TreeSet of logged in traders
   Recieves quotes requests and trade orders from Traders and relays them to StockExchange
+  
 Stock:
   Holds Stock Symbol, Company Name, Low and High price, Volume of Sale
   Priority queue for buy orders
