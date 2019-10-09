@@ -8,10 +8,10 @@ import java.util.Comparator;
  */
 
 public class PriceComparator implements Comparator<TradeOrder> {
-	private boolean ascend = true; 
+	private boolean ascend; 
 	
 	public PriceComparator() {
-		
+		ascend = true;
 	}
 	
 	public PriceComparator(boolean a) {
@@ -24,5 +24,17 @@ public class PriceComparator implements Comparator<TradeOrder> {
 			return diff;
 		else
 			return -diff;
+	}
+	
+	/*
+	 * Switches the comparator order to ascending or descending
+	 * @param boolean that sets the order for comparator 
+	 */
+	
+	public void setAscending(boolean a) {
+		if(a)
+			ascend = true;
+		else
+			ascend = false;
 	}
 }

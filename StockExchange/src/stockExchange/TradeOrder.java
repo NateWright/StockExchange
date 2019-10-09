@@ -1,6 +1,6 @@
 package stockExchange;
 
-/*
+/**
  * Data carrier for fields that correspond to the entry fields in a TraderWindow
  * Created by: Nazarii Klymok
  */
@@ -10,6 +10,15 @@ public class TradeOrder {
 	private int price;
 	private boolean isBuying;
 	private boolean isMarket;
+	
+	/**
+	 * A constructor for instant and more compact initialization of the object
+	 * @param ss sets a stock symbol
+	 * @param nos sets a number of shares
+	 * @param p sets price
+	 * @param b correspond to boolean 'isBuying'
+	 * @param m correspond to boolean 'isMarket'
+	 */
 	
 	public TradeOrder(String ss, int nos, int p, boolean b, boolean m) {
 		stockSymbol = ss;
