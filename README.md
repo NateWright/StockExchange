@@ -30,7 +30,7 @@ Trader:
   
     Request Quotes and place orders with brokerage
   
-                                Stores messages in a mailbox and displays them in Trader Window
+    Stores messages in a mailbox and displays them in Trader Window
   
 TradeOrder:
 
