@@ -5,22 +5,24 @@ package stockExchange;
  * Created by: Nazarii Klymok
  */
 public class TradeOrder {
+	private Trader trader;
 	private String stockSymbol;
 	private int numberOfShares;
-	private int price;
+	private double price;
 	private boolean isBuying;
 	private boolean isMarket;
 	
 	/**
-	 * A constructor for instant and more compact initialization of the object
-	 * @param ss sets a stock symbol
-	 * @param nos sets a number of shares
-	 * @param p sets price
-	 * @param b correspond to boolean 'isBuying'
-	 * @param m correspond to boolean 'isMarket'
+	 * Initializes a TradeOrder with following parameters: 
+	 * @param t - sets a trader for the TradeOrders
+	 * @param ss - sets a stock symbol
+	 * @param b - sets boolean 'isBuying'
+	 * @param m - sets boolean 'isMarket'
+	 * @param nos - sets a number of shares
+	 * @param p - sets price
 	 */
-	
-	public TradeOrder(String ss, int nos, int p, boolean b, boolean m) {
+	public TradeOrder(Trader t, String ss, boolean b, boolean m, int nos, double p) {
+		trader = t;
 		stockSymbol = ss;
 		numberOfShares = nos;
 		price = p;
@@ -28,8 +30,8 @@ public class TradeOrder {
 		isMarket = m;
 	}
 	
-	public TradeOrder() {
-		
+	public Trader getTrader() {
+		return trader;
 	}
 
 	public boolean isMarket() {
@@ -48,7 +50,7 @@ public class TradeOrder {
 		this.isBuying = isBuying;
 	}
 
-	public int getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
@@ -72,6 +74,4 @@ public class TradeOrder {
 		this.stockSymbol = stockSymbol;
 	}
 	
-
-
 }
