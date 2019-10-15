@@ -51,4 +51,4 @@ Tomas - Trader
 
 Colby - StockExchange, Brokerage
 
-Nazarii - TradeOrder ✓, PriceComparator ✓
+Nazarii - TradeOrder, PriceComparator
