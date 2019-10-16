@@ -3,27 +3,43 @@ package stockExchange;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-public class Brokerage {
+public class Brokerage implements Login {
 
 		private TreeMap<String, Trader> registered;
 		private TreeSet<Trader> loggedIn;
 	
-	//Constructor
-	public Brokerage()
+	public Brokerage(StockExchange test)
 	{
+		registered = new TreeMap<>();
+		loggedIn = new TreeSet<>();
+	}
 		
+	public int addUser(String userName, String password)
+	{
+		if (userName.length() < 4 || userName.length() > 10)
+			return -1;
+		if (password.length() < 2 || password.length() > 10)
+			return -2;
+		if (registered.containsKey(userName))
+			return -3;
+		
+		registered.put(userName, new Trader(userName, password));
+		return 0;
 	}
 	
-		//Registers a user
-		public void addUser(String userName, Trader trader)
-		{
-		 registered.put(userName, trader);
-		}
+	public int login(String userName, String password)
+	{
+		if (!userName.contains(userName))
+			return -1;
+		if (!registered.get(userName).getPassword().equals(password))
+			return -2;
+		if (loggedIn.contains(registered.get(userName)))
+			return -3;
 		
-		//Logs in a user
-		public void login(String userName, Trader trader)
-		{
-		 loggedIn.add(registered.get(userName));
-		}
+		loggedIn.add(registered.get(userName));
+		return 0;
+	}
+	
+	
 	
 }

@@ -8,16 +8,17 @@ import java.util.Comparator;
  */
 
 public class PriceComparator implements Comparator<TradeOrder> {
-	private boolean ascend; 
+	private boolean ascend = true; 
 	
 	public PriceComparator() {
-		ascend = true;
+
 	}
 	
 	public PriceComparator(boolean a) {
 		ascend = a;
 	}
 	
+	@Override
 	public int compare(TradeOrder to1, TradeOrder to2) {
 		if (to1.getPrice() > to2.getPrice())
 			if (ascend)

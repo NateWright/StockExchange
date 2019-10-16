@@ -10,29 +10,46 @@ import java.util.PriorityQueue;
 public class Stock {
 	private String tiker;
 	private String companyName;
-	private int lowestSell;
-	private int HighestSell;
+	private double price;
+	private double lowestSell;
+	private double HighestSell;
 	private int volume;
-	private Comparator<Integer> greatestFirst = (int1, int2) -> {
-        return int1 - int2;
-	};
-	private PriorityQueue<Integer> buyStockQ = new PriorityQueue<>(greatestFirst);
-	private PriorityQueue<Integer> sellStockQ = new PriorityQueue<>();
+	private PriceComparator buyComparator = new PriceComparator(false);
+	private PriceComparator sellComparator = new PriceComparator(true);
+	private PriorityQueue<TradeOrder> buyStockQ = new PriorityQueue<>(buyComparator);
+	private PriorityQueue<TradeOrder> sellStockQ = new PriorityQueue<>(sellComparator);
 	
 	
 	//The Stock object for storing the details of a stock
-	public Stock(String tik, String cName, int lSell, int hSell, int v) {
+	public Stock(String tik, String cName, double p) {
 		tiker = tik;
 		companyName = cName;
-		lowestSell = lSell;
-		HighestSell = hSell;
-		volume = v;
+		price = p;
 	}
-	public void buyStock(int price) {
-		buyStockQ.add(price);
+	
+	public void buyStock(TradeOrder to) {
+		buyStockQ.add(to);
 	}
-	public void sellStock(int price) {
-		sellStockQ.add(price);
+	public void sellStock(TradeOrder to) {
+		sellStockQ.add(to);
+	}
+	public double getLowestSell() {
+		return lowestSell;
+	}
+	public void setLowestSell(double lowestSell) {
+		this.lowestSell = lowestSell;
+	}
+	public double getHighestSell() {
+		return HighestSell;
+	}
+	public void setHighestSell(double highestSell) {
+		HighestSell = highestSell;
+	}
+	public int getVolume() {
+		return volume;
+	}
+	public void setVolume(int volume) {
+		this.volume = volume;
 	}
 	
 }

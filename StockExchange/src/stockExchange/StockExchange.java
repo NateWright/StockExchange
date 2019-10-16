@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class StockExchange {
 
-			private HashMap <String, Double> stock = new HashMap<String, Double>();
+			private HashMap <String, Stock> stocks = new HashMap<String, Stock>();
 	
 	public StockExchange()
 	{
@@ -13,7 +13,7 @@ public class StockExchange {
 	
 	public void listStock(String ticker, String companyName, Double stockPrice)
 	{
-		stock.put(ticker, stockPrice);
+		stocks.put(ticker, new Stock(ticker, companyName, stockPrice));
 	}
 	
 }
