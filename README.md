@@ -6,7 +6,7 @@ StockExchange:
 
     HashMap of listed stocks - keyed by Ticker Symbols
   
-Brockerage:
+Brokerage:
 
     TreeMap of registered traders
   
