@@ -7,11 +7,14 @@ public class Brokerage implements Login {
 
 		private TreeMap<String, Trader> registered;
 		private TreeSet<Trader> loggedIn;
+		private StockExchange se;
 	
 	public Brokerage(StockExchange test)
 	{
+		
 		registered = new TreeMap<>();
 		loggedIn = new TreeSet<>();
+		se = test;
 	}
 		
 	public int addUser(String userName, String password)
@@ -23,7 +26,7 @@ public class Brokerage implements Login {
 		if (registered.containsKey(userName))
 			return -3;
 		
-		registered.put(userName, new Trader(userName, password));
+		registered.put(userName, new Trader(userName, password, this));
 		return 0;
 	}
 	
@@ -37,9 +40,16 @@ public class Brokerage implements Login {
 			return -3;
 		
 		loggedIn.add(registered.get(userName));
+		registered.get(userName).showWindow();
 		return 0;
 	}
 	
+	public String getQuote(String smbl) {
+		return se.getStock(smbl).toString();
+	}
 	
+	public void placeOrder(TradeOrder to) {
+		se.placeOrder(to);
+	}
 	
 }

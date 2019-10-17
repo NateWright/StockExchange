@@ -3,17 +3,20 @@ package stockExchange;
 import java.util.LinkedList;
 
 
-public class Trader {
+public class Trader implements Comparable<Trader> {
 	private String name;
 	private LinkedList<String> mailbox;
 	private TraderWindow tw;
 	private String password;
 	private String quote;
+	private Brokerage brokerage;
 	
 	//No args constructor to allow for blank slates	
-	public Trader(String n, String p) {
+	public Trader(String n, String p, Brokerage b) {
 		name = n;
 		password = p;
+		brokerage = b;
+		mailbox = new LinkedList<>();
 	}
 
 //	These methods allow TraderWindow to access specific information of the user 
@@ -24,35 +27,46 @@ public class Trader {
 	public void quit() {
 
 	}
-
-	public void getQuote(String quote) {
 	
+	public void showWindow() {
+		tw = new TraderWindow(this);		
 	}
 
 	public void placeOrder(TradeOrder tradeOrder) {
-	
+		brokerage.placeOrder(tradeOrder);
 	}
 	//These methods allow TraderWindow to access specific information of the user  ^^^
 
 	public void addMail(String message) {
 		mailbox.add(message);
+		getMail();
 		
 	}
 	
 	public void getMail() {
-		tw.showMessage(mailbox.getFirst());
+		tw.showMessage(mailbox.removeLast());
 	}
 	
 	public void setQuote(String q) {
 		quote = q;
 	}
 	
-	public String getQuote() {
-		return quote;
+	public void getQuote(String smbl) {
+		addMail(brokerage.getQuote(smbl));
 	}
 
 	public String getPassword() {
 		return password;
+	}
+	
+	public int compareTo(Trader t) {
+		return getName().compareTo(t.getName());
+	}
+	
+	public boolean equals(Object t) {
+		if (t instanceof Trader)
+			return getName().equals(((Trader) t).getName());
+		return false;
 	}
 	
 }

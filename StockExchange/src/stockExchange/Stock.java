@@ -27,6 +27,23 @@ public class Stock {
 		price = p;
 	}
 	
+	@Override
+	public String toString() {
+		Double ask;
+		if (buyStockQ.peek() != null)
+			ask = buyStockQ.peek().getPrice();
+		else
+			ask = 0.0d;
+		int bid;
+		if (buyStockQ.peek() != null)
+			bid = buyStockQ.peek().getNumberOfShares();
+		else
+			bid = 0;
+		return companyName + "(" + tiker + ")\n" +
+				"Price: " + price + " " + "hi: " + HighestSell + " " + "lo: " + lowestSell + " " + "vol: " + volume + "\n"
+				+ "ask: " + ask + " " + "bid: " + bid + "\n";
+	}
+	
 	public void buyStock(TradeOrder to) {
 		buyStockQ.add(to);
 	}
