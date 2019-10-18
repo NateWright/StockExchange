@@ -34,9 +34,14 @@ public class Trader implements Comparable<Trader> {
 
 	public void placeOrder(TradeOrder tradeOrder) {
 		brokerage.placeOrder(tradeOrder);
-		if (tradeOrder.isMarket())
-			addMail("New order:  Buy " + tradeOrder.getStockSymbol() + " (" + brokerage.getCompanyName(tradeOrder.getStockSymbol()) + ")\r\n" + 
-				"10 shares at market ");
+		if (tradeOrder.isMarket()) {
+			if(tradeOrder.isBuying())
+				addMail("New order:  Buy " + tradeOrder.getStockSymbol() + " (" + brokerage.getCompanyName(tradeOrder.getStockSymbol()) + ")\r\n" + 
+						 tradeOrder.getNumberOfShares() +" shares at market ");
+			else
+				addMail("New order: Sell " + tradeOrder.getStockSymbol() + " (" + brokerage.getCompanyName(tradeOrder.getStockSymbol()) + ")\r\n" + 
+						tradeOrder.getNumberOfShares() + " shares at market ");
+		}
 		else
 			addMail("New order:  Buy " + tradeOrder.getStockSymbol() + " (" + brokerage.getCompanyName(tradeOrder.getStockSymbol()) + ")\r\n" + 
 					"10 shares at " + tradeOrder.getPrice());
