@@ -56,13 +56,12 @@ public class Stock {
 		buyStockQ.add(to);
 		if (!to.isMarket())
 			to.getTrader().addMail("You bought: " + to.getNumberOfShares() + " " + to.getStockSymbol() + " at " + to.getPrice() + 
-				" amt " + to.getNumberOfShares() * to.getPrice());
+					" amt " + to.getNumberOfShares() * to.getPrice());
 	}
 	public void sellStock(TradeOrder to) {
 		sellStockQ.add(to);
-		if(!to.isBuying())
-			to.getTrader().addMail("You sold: " + to.getNumberOfShares() + " " + to.getStockSymbol() + " at " + to.getPrice() + 
-				" amt " + to.getNumberOfShares() * to.getPrice());
+		to.getTrader().addMail("You sold: " + to.getNumberOfShares() + " " + to.getStockSymbol() + " at " + to.getPrice() + 
+			" amt " + to.getNumberOfShares() * to.getPrice());
 	}
 	public double getLowestSell() {
 		return lowestSell;
