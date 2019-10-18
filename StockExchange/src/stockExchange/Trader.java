@@ -25,7 +25,7 @@ public class Trader implements Comparable<Trader> {
 	}
 
 	public void quit() {
-
+		brokerage.logout(this);
 	}
 	
 	public void showWindow() {
@@ -34,6 +34,12 @@ public class Trader implements Comparable<Trader> {
 
 	public void placeOrder(TradeOrder tradeOrder) {
 		brokerage.placeOrder(tradeOrder);
+		if (tradeOrder.isMarket())
+			addMail("New order:  Buy " + tradeOrder.getStockSymbol() + " (" + brokerage.getCompanyName(tradeOrder.getStockSymbol()) + ")\r\n" + 
+				"10 shares at market ");
+		else
+			addMail("New order:  Buy " + tradeOrder.getStockSymbol() + " (" + brokerage.getCompanyName(tradeOrder.getStockSymbol()) + ")\r\n" + 
+					"10 shares at " + tradeOrder.getPrice());
 	}
 	//These methods allow TraderWindow to access specific information of the user  ^^^
 

@@ -39,13 +39,23 @@ public class Brokerage implements Login {
 		if (loggedIn.contains(registered.get(userName)))
 			return -3;
 		
-		loggedIn.add(registered.get(userName));
-		registered.get(userName).showWindow();
+		Trader t = registered.get(userName);
+		loggedIn.add(t);
+		t.showWindow();
+		t.addMail("Welcome to SafeTrade, " + t.getName() + "!");
 		return 0;
+	}
+	
+	public void logout(Trader userName) {
+		loggedIn.remove(userName);
 	}
 	
 	public String getQuote(String smbl) {
 		return se.getStock(smbl).toString();
+	}
+	
+	public String getCompanyName(String smbl) {
+		return se.getStock(smbl).getCompanyName();
 	}
 	
 	public void placeOrder(TradeOrder to) {

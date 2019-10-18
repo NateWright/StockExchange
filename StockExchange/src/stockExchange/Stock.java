@@ -12,7 +12,7 @@ public class Stock {
 	private String companyName;
 	private double price;
 	private double lowestSell;
-	private double HighestSell;
+	private double highestSell;
 	private int volume;
 	private PriceComparator buyComparator = new PriceComparator(false);
 	private PriceComparator sellComparator = new PriceComparator(true);
@@ -25,30 +25,44 @@ public class Stock {
 		tiker = tik;
 		companyName = cName;
 		price = p;
+		lowestSell = price;
+		highestSell = price;
 	}
 	
 	@Override
 	public String toString() {
-		Double ask;
-		if (buyStockQ.peek() != null)
-			ask = buyStockQ.peek().getPrice();
-		else
-			ask = 0.0d;
-		int bid;
-		if (buyStockQ.peek() != null)
-			bid = buyStockQ.peek().getNumberOfShares();
-		else
-			bid = 0;
-		return companyName + "(" + tiker + ")\n" +
-				"Price: " + price + " " + "hi: " + HighestSell + " " + "lo: " + lowestSell + " " + "vol: " + volume + "\n"
-				+ "ask: " + ask + " " + "bid: " + bid + "\n";
+		String ask = "none";
+		if (sellStockQ.peek() != null && sellStockQ.peek().getPrice() != 0) {
+			ask = "" + sellStockQ.peek().getPrice();
+			if (sellStockQ.peek().isMarket()) {
+				ask = "market vol: " + sellStockQ.peek().getNumberOfShares();
+			}
+		}
+		
+		String bid = "none";
+		if (buyStockQ.peek() != null && buyStockQ.peek().getNumberOfShares() != 0)
+			bid = "" + buyStockQ.peek().getNumberOfShares();
+		
+		return companyName + " (" + tiker + ")\n" +
+				"Price: " + price + " " + "hi: " + highestSell + " " + "lo: " + lowestSell + " " + "vol: " + volume + "\n"
+				+ "Ask: " + ask + " " + "Bid: " + bid + "\n";
+	}
+	
+	public String getCompanyName() {
+		return companyName;
 	}
 	
 	public void buyStock(TradeOrder to) {
 		buyStockQ.add(to);
+		if (!to.isMarket())
+			to.getTrader().addMail("You bought: " + to.getNumberOfShares() + " " + to.getStockSymbol() + " at " + to.getPrice() + 
+				" amt " + to.getNumberOfShares() * to.getPrice());
 	}
 	public void sellStock(TradeOrder to) {
 		sellStockQ.add(to);
+		if(!to.isBuying())
+			to.getTrader().addMail("You sold: " + to.getNumberOfShares() + " " + to.getStockSymbol() + " at " + to.getPrice() + 
+				" amt " + to.getNumberOfShares() * to.getPrice());
 	}
 	public double getLowestSell() {
 		return lowestSell;
@@ -57,10 +71,10 @@ public class Stock {
 		this.lowestSell = lowestSell;
 	}
 	public double getHighestSell() {
-		return HighestSell;
+		return highestSell;
 	}
-	public void setHighestSell(double highestSell) {
-		HighestSell = highestSell;
+	public void setHighestSell(double hs) {
+		highestSell = hs;
 	}
 	public int getVolume() {
 		return volume;
