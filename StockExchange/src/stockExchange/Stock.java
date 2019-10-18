@@ -63,6 +63,42 @@ public class Stock {
 		to.getTrader().addMail("You sold: " + to.getNumberOfShares() + " " + to.getStockSymbol() + " at " + to.getPrice() + 
 			" amt " + to.getNumberOfShares() * to.getPrice());
 	}
+	public void executeTrade() {
+		if(buyStockQ.peek().getPrice() >= sellStockQ.peek().getPrice()) {
+			int numberToSell = 0;
+			if(buyStockQ.peek().getNumberOfShares() > sellStockQ.peek().getNumberOfShares()) {
+				numberToSell = sellStockQ.peek().getNumberOfShares();
+				TradeOrder b = buyStockQ.poll();
+				TradeOrder s = sellStockQ.poll();
+				b.setNumberOfShares(b.getNumberOfShares() - numberToSell);
+				b.getTrader().addMail("You bought: " + numberToSell + " " + b.getStockSymbol() + " at " + s.getPrice() + 
+						" amt " + numberToSell * s.getPrice());
+				buyStockQ.add(b);
+				s.getTrader().addMail("You bought: " + numberToSell + " " + b.getStockSymbol() + " at " + s.getPrice() + 
+						" amt " + numberToSell * s.getPrice());
+			}
+			else if(buyStockQ.peek().getNumberOfShares() < sellStockQ.peek().getNumberOfShares()) {
+				numberToSell = buyStockQ.peek().getNumberOfShares();
+				TradeOrder b = buyStockQ.poll();
+				TradeOrder s = sellStockQ.poll();
+				s.setNumberOfShares(s.getNumberOfShares() - numberToSell);
+				b.getTrader().addMail("You bought: " + numberToSell + " " + b.getStockSymbol() + " at " + s.getPrice() + 
+						" amt " + numberToSell * s.getPrice());
+				s.getTrader().addMail("You bought: " + numberToSell + " " + b.getStockSymbol() + " at " + s.getPrice() + 
+						" amt " + numberToSell * s.getPrice());
+				sellStockQ.add(s);
+			}
+			else {
+				numberToSell = buyStockQ.peek().getNumberOfShares();
+				TradeOrder b = buyStockQ.poll();
+				TradeOrder s = sellStockQ.poll();
+				b.getTrader().addMail("You bought: " + numberToSell + " " + b.getStockSymbol() + " at " + s.getPrice() + 
+						" amt " + numberToSell * s.getPrice());
+				s.getTrader().addMail("You bought: " + numberToSell + " " + b.getStockSymbol() + " at " + s.getPrice() + 
+						" amt " + numberToSell * s.getPrice());
+			}
+		}
+	}
 	public double getLowestSell() {
 		return lowestSell;
 	}
