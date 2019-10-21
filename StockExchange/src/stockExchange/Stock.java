@@ -13,8 +13,8 @@ public class Stock {
 	private double lowestSell;
 	private double highestSell;
 	private int volume;
-	private PriceComparator buyComparator = new PriceComparator(false);
-	private PriceComparator sellComparator = new PriceComparator(true);
+	private PriceComparator buyComparator = new PriceComparator(true);
+	private PriceComparator sellComparator = new PriceComparator(false);
 	private PriorityQueue<TradeOrder> buyStockQ = new PriorityQueue<>(buyComparator);
 	private PriorityQueue<TradeOrder> sellStockQ = new PriorityQueue<>(sellComparator);
 	
