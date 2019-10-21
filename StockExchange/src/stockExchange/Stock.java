@@ -82,6 +82,7 @@ public class Stock {
 					setHighestSell(s.getPrice());
 				}
 				volume += numberToSell;
+				price = s.getPrice();
 			}
 			else if(buyStockQ.peek().getNumberOfShares() < sellStockQ.peek().getNumberOfShares()) {
 				numberToSell = buyStockQ.peek().getNumberOfShares();
@@ -100,6 +101,7 @@ public class Stock {
 					setHighestSell(s.getPrice());
 				}
 				volume += numberToSell;
+				price = s.getPrice();
 			}
 			else {
 				numberToSell = buyStockQ.peek().getNumberOfShares();
@@ -116,6 +118,7 @@ public class Stock {
 					setHighestSell(s.getPrice());
 				}
 				volume += numberToSell;
+				price = s.getPrice();
 			}
 		}
 	}
