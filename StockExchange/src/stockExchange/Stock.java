@@ -41,11 +41,14 @@ public class Stock {
 		
 		String bid = "none";
 		if (buyStockQ.peek() != null && buyStockQ.peek().getNumberOfShares() != 0)
-			bid = "" + buyStockQ.peek().getNumberOfShares();
+			if (buyStockQ.peek().isMarket()) 
+				bid = "market size: " + buyStockQ.peek().getNumberOfShares();
+			else
+				bid = "" + buyStockQ.peek().getNumberOfShares();
 		
 		return companyName + " (" + tiker + ")\n" +
 				"Price: " + price + " " + "hi: " + highestSell + " " + "lo: " + lowestSell + " " + "vol: " + volume + "\n"
-				+ "Ask: " + ask + " " + "Bid: " + bid + "\n";
+				+ "Ask: " + ask + " " + "Bid: " + bid;
 	}
 	
 	public String getCompanyName() {
@@ -54,17 +57,14 @@ public class Stock {
 	
 	public void buyStock(TradeOrder to) {
 		buyStockQ.add(to);
-		if (!to.isMarket())
-			to.getTrader().addMail("You bought: " + to.getNumberOfShares() + " " + to.getStockSymbol() + " at " + to.getPrice() + 
-					" amt " + to.getNumberOfShares() * to.getPrice());
+		executeTrade();
 	}
 	public void sellStock(TradeOrder to) {
 		sellStockQ.add(to);
-		to.getTrader().addMail("You sold: " + to.getNumberOfShares() + " " + to.getStockSymbol() + " at " + to.getPrice() + 
-			" amt " + to.getNumberOfShares() * to.getPrice());
+		executeTrade();
 	}
 	public void executeTrade() {
-		if(buyStockQ.peek().getPrice() >= sellStockQ.peek().getPrice()) {
+ 		if((buyStockQ.peek() != null && sellStockQ.peek() != null) && buyStockQ.peek().getPrice() >= sellStockQ.peek().getPrice()) {
 			int numberToSell = 0;
 			if(buyStockQ.peek().getNumberOfShares() > sellStockQ.peek().getNumberOfShares()) {
 				numberToSell = sellStockQ.peek().getNumberOfShares();
@@ -74,7 +74,7 @@ public class Stock {
 				b.getTrader().addMail("You bought: " + numberToSell + " " + b.getStockSymbol() + " at " + s.getPrice() + 
 						" amt " + numberToSell * s.getPrice());
 				buyStockQ.add(b);
-				s.getTrader().addMail("You bought: " + numberToSell + " " + b.getStockSymbol() + " at " + s.getPrice() + 
+				s.getTrader().addMail("You sold: " + numberToSell + " " + b.getStockSymbol() + " at " + s.getPrice() + 
 						" amt " + numberToSell * s.getPrice());
 			}
 			else if(buyStockQ.peek().getNumberOfShares() < sellStockQ.peek().getNumberOfShares()) {
@@ -84,7 +84,7 @@ public class Stock {
 				s.setNumberOfShares(s.getNumberOfShares() - numberToSell);
 				b.getTrader().addMail("You bought: " + numberToSell + " " + b.getStockSymbol() + " at " + s.getPrice() + 
 						" amt " + numberToSell * s.getPrice());
-				s.getTrader().addMail("You bought: " + numberToSell + " " + b.getStockSymbol() + " at " + s.getPrice() + 
+				s.getTrader().addMail("You sold: " + numberToSell + " " + b.getStockSymbol() + " at " + s.getPrice() + 
 						" amt " + numberToSell * s.getPrice());
 				sellStockQ.add(s);
 			}
@@ -94,7 +94,7 @@ public class Stock {
 				TradeOrder s = sellStockQ.poll();
 				b.getTrader().addMail("You bought: " + numberToSell + " " + b.getStockSymbol() + " at " + s.getPrice() + 
 						" amt " + numberToSell * s.getPrice());
-				s.getTrader().addMail("You bought: " + numberToSell + " " + b.getStockSymbol() + " at " + s.getPrice() + 
+				s.getTrader().addMail("You sold: " + numberToSell + " " + b.getStockSymbol() + " at " + s.getPrice() + 
 						" amt " + numberToSell * s.getPrice());
 			}
 		}

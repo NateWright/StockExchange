@@ -34,21 +34,32 @@ public class Trader implements Comparable<Trader> {
 
 	public void placeOrder(TradeOrder tradeOrder) {
 		if (tradeOrder.isMarket()) {
-			if(tradeOrder.isBuying())
+			if(tradeOrder.isBuying()) {
+				if (tradeOrder.getPrice() == 0.0d)
+					tradeOrder.setPrice(brokerage.getStock(tradeOrder.getStockSymbol()).getLowestSell());
 				addMail("New order:  Buy " + tradeOrder.getStockSymbol() + " (" + brokerage.getCompanyName(tradeOrder.getStockSymbol()) + ")\r\n" + 
 						 tradeOrder.getNumberOfShares() +" shares at market ");
-			else
+			}
+			else {
+				if (tradeOrder.getPrice() == 0.0d)
+					tradeOrder.setPrice(brokerage.getStock(tradeOrder.getStockSymbol()).getHighestSell());
 				addMail("New order: Sell " + tradeOrder.getStockSymbol() + " (" + brokerage.getCompanyName(tradeOrder.getStockSymbol()) + ")\r\n" + 
 						tradeOrder.getNumberOfShares() + " shares at market ");
+			}
 		}
 		else
-			if (tradeOrder.isBuying())
+			if (tradeOrder.isBuying()) {
+				if (tradeOrder.getPrice() == 0.0d)
+					tradeOrder.setPrice(brokerage.getStock(tradeOrder.getStockSymbol()).getLowestSell());
 				addMail("New order:  Buy " + tradeOrder.getStockSymbol() + " (" + brokerage.getCompanyName(tradeOrder.getStockSymbol()) + ")\r\n" + 
 						tradeOrder.getNumberOfShares() + " shares at " + tradeOrder.getPrice());
-			else
+			}
+			else {
+				if (tradeOrder.getPrice() == 0.0d)
+					tradeOrder.setPrice(brokerage.getStock(tradeOrder.getStockSymbol()).getHighestSell());
 				addMail("New order:  Sell " + tradeOrder.getStockSymbol() + " (" + brokerage.getCompanyName(tradeOrder.getStockSymbol()) + ")\r\n" + 
 						tradeOrder.getNumberOfShares() + " shares at " + tradeOrder.getPrice());
-		
+			}
 		brokerage.placeOrder(tradeOrder);
 
 	}

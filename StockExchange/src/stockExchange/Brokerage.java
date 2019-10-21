@@ -58,6 +58,10 @@ public class Brokerage implements Login {
 		return se.getStock(smbl).getCompanyName();
 	}
 	
+	public Stock getStock(String smbl) {
+		return se.getStock(smbl);
+	}
+	
 	public void placeOrder(TradeOrder to) {
 		se.placeOrder(to);
 	}
