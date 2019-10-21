@@ -1,6 +1,5 @@
 package stockExchange;
 
-import java.util.Comparator;
 import java.util.PriorityQueue;
 
 /*
@@ -76,6 +75,13 @@ public class Stock {
 				buyStockQ.add(b);
 				s.getTrader().addMail("You sold: " + numberToSell + " " + b.getStockSymbol() + " at " + s.getPrice() + 
 						" amt " + numberToSell * s.getPrice());
+				if(getLowestSell() > s.getPrice()) {
+					setLowestSell(s.getPrice());
+				}
+				if(getHighestSell() < s.getPrice()) {
+					setHighestSell(s.getPrice());
+				}
+				volume += numberToSell;
 			}
 			else if(buyStockQ.peek().getNumberOfShares() < sellStockQ.peek().getNumberOfShares()) {
 				numberToSell = buyStockQ.peek().getNumberOfShares();
@@ -87,6 +93,13 @@ public class Stock {
 				s.getTrader().addMail("You sold: " + numberToSell + " " + b.getStockSymbol() + " at " + s.getPrice() + 
 						" amt " + numberToSell * s.getPrice());
 				sellStockQ.add(s);
+				if(getLowestSell() > s.getPrice()) {
+					setLowestSell(s.getPrice());
+				}
+				if(getHighestSell() < s.getPrice()) {
+					setHighestSell(s.getPrice());
+				}
+				volume += numberToSell;
 			}
 			else {
 				numberToSell = buyStockQ.peek().getNumberOfShares();
@@ -96,6 +109,13 @@ public class Stock {
 						" amt " + numberToSell * s.getPrice());
 				s.getTrader().addMail("You sold: " + numberToSell + " " + b.getStockSymbol() + " at " + s.getPrice() + 
 						" amt " + numberToSell * s.getPrice());
+				if(getLowestSell() > s.getPrice()) {
+					setLowestSell(s.getPrice());
+				}
+				if(getHighestSell() < s.getPrice()) {
+					setHighestSell(s.getPrice());
+				}
+				volume += numberToSell;
 			}
 		}
 	}
