@@ -40,10 +40,11 @@ public class Stock {
 		
 		String bid = "none";
 		if (buyStockQ.peek() != null && buyStockQ.peek().getNumberOfShares() != 0)
-			if (buyStockQ.peek().isMarket()) 
-				bid = "market size: " + buyStockQ.peek().getNumberOfShares();
+			if(buyStockQ.peek().isMarket()) {
+				bid = "Market Size: "+buyStockQ.peek().getNumberOfShares();
+			}
 			else
-				bid = "" + buyStockQ.peek().getNumberOfShares();
+				bid = buyStockQ.peek().getPrice() +" Size: "+buyStockQ.peek().getNumberOfShares();
 		
 		return companyName + " (" + tiker + ")\n" +
 				"Price: " + price + " " + "hi: " + highestSell + " " + "lo: " + lowestSell + " " + "vol: " + volume + "\n"
@@ -82,7 +83,6 @@ public class Stock {
 					setHighestSell(s.getPrice());
 				}
 				volume += numberToSell;
-				price = s.getPrice();
 			}
 			else if(buyStockQ.peek().getNumberOfShares() < sellStockQ.peek().getNumberOfShares()) {
 				numberToSell = buyStockQ.peek().getNumberOfShares();
@@ -101,7 +101,6 @@ public class Stock {
 					setHighestSell(s.getPrice());
 				}
 				volume += numberToSell;
-				price = s.getPrice();
 			}
 			else {
 				numberToSell = buyStockQ.peek().getNumberOfShares();
@@ -118,7 +117,6 @@ public class Stock {
 					setHighestSell(s.getPrice());
 				}
 				volume += numberToSell;
-				price = s.getPrice();
 			}
 		}
 	}
