@@ -32,7 +32,7 @@ public class Brokerage implements Login {
 	
 	public int login(String userName, String password)
 	{
-		if (!userName.contains(userName))
+		if (!registered.containsKey(userName))
 			return -1;
 		if (!registered.get(userName).getPassword().equals(password))
 			return -2;
