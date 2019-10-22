@@ -82,6 +82,10 @@ public class Trader implements Comparable<Trader> {
 	public void getQuote(String smbl) {
 		addMail(brokerage.getQuote(smbl));
 	}
+	
+	public Brokerage getBrokerage() {
+		return brokerage;
+	}
 
 	public String getPassword() {
 		return password;

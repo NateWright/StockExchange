@@ -132,6 +132,11 @@ public class Stock {
 	public void setHighestSell(double hs) {
 		highestSell = hs;
 	}
+	
+	public double getDefaultPrice() {
+		return price;
+	}
+	
 	public int getVolume() {
 		return volume;
 	}

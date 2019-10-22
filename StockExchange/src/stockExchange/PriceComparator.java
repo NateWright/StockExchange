@@ -20,12 +20,22 @@ public class PriceComparator implements Comparator<TradeOrder> {
 	
 	@Override
 	public int compare(TradeOrder to1, TradeOrder to2) {
-		if (to1.getPrice() > to2.getPrice())
+		double price1 = to1.getPrice();
+		double price2 = to2.getPrice();
+		
+		if (to1.isMarket()) {
+			price1 = to1.getTrader().getBrokerage().getStock(to1.getStockSymbol()).getDefaultPrice();
+		}
+		if (to2.isMarket()) {
+			price2 = to2.getTrader().getBrokerage().getStock(to2.getStockSymbol()).getDefaultPrice();
+		}
+		
+		if (price1 > price2)
 			if (ascend)
 				return 1;
 			else
 				return -1;
-		if (to1.getPrice() < to2.getPrice())
+		if (price1 < price2)
 			if (ascend)
 				return -1;
 			else 
