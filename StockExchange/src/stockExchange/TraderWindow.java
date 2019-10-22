@@ -1,24 +1,27 @@
 package stockExchange;
 import java.awt.Color;
 import java.awt.Container;
-import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
-import java.awt.event.ActionListener;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.JRadioButton;
-import javax.swing.ButtonGroup;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JTextArea;
-import javax.swing.JScrollPane;
-import javax.swing.JOptionPane;
-import javax.swing.Box;
+
 import javax.swing.AbstractButton;
+import javax.swing.Box;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.EmptyBorder;
 
 /**
@@ -155,6 +158,17 @@ public class TraderWindow extends JFrame
     b.add(areaScrollPane);
     Container c = getContentPane();
     c.add(b);
+    
+    try {
+        for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+            if ("Nimbus".equals(info.getName())) {
+                UIManager.setLookAndFeel(info.getClassName());
+                break;
+            }
+        }
+    } catch (Exception e) {
+        // If Nimbus is not available, you can set the GUI to another look and feel.
+    }
 
     int x = (int)(Math.random()* 500);
     int y = (int)(Math.random()* 300);
